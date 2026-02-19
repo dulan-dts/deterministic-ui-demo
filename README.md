@@ -21,6 +21,21 @@ Deterministic rule enforced:
 
 `interactive = !(disabled || loading)`
 
+---
+
+### Modal (Commit 3)
+- Contract: `contracts/modal.contract.md`
+- Implementation: `components/Modal.tsx`
+
+Lifecycle states:
+
+`closed → opening → open → closing → closed`
+
+Derived rules enforced:
+
+- `visible = state !== "closed"`
+- `interactive = state === "open"`
+
 ## Run locally
 
 ```bash
