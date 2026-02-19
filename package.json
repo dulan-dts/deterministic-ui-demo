@@ -2,15 +2,16 @@
   "name": "navorix-deterministic-ui-demo",
   "version": "1.0.0",
   "private": true,
-  "description": "This repository demonstrates a state-defined UI architecture where every component has an explicit behavioral contract.",
+  "description": "Deterministic UI reference implementation with explicit behavioural contracts.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "vitest",
+    "test:watch": "vitest --watch",
+    "test:run": "vitest run"
   },
-  "keywords": [],
-  "author": "",
   "license": "MIT",
   "type": "module",
   "dependencies": {
@@ -21,6 +22,9 @@
   "devDependencies": {
     "@types/node": "25.3.0",
     "@types/react": "19.2.14",
-    "typescript": "5.9.3"
+    "@vitejs/plugin-react": "^4.3.4",
+    "jsdom": "^25.0.1",
+    "typescript": "5.9.3",
+    "vitest": "^4.0.18"
   }
 }
