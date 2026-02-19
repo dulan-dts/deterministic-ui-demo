@@ -2,24 +2,48 @@
 import React from "react";
 
 import { Button } from "../components/Button";
-import { Modal, type ModalState } from "../components/Modal";
+import { Modal } from "../components/Modal";
+import { Table } from "../components/Table";
+import {
+  type ModalState,
+  resolveNextModalState,
+  MODAL_TRANSITION_DURATION,
+} from "../components/modal-state";
 
 export default function HomePage() {
   const [modalState, setModalState] = React.useState<ModalState>("closed");
-  const TRANSITION_DURATION = 200;
 
   function openModal() {
-    if (modalState !== "closed") return;
-    setModalState("opening");
-    window.setTimeout(() => setModalState("open"), TRANSITION_DURATION);
+    const next = resolveNextModalState(modalState, "opening");
+    if (next === modalState) return;
+
+    setModalState(next);
+
+    window.setTimeout(() => {
+      setModalState((current) => resolveNextModalState(current, "open"));
+    }, MODAL_TRANSITION_DURATION);
   }
 
   function requestClose() {
-    if (modalState !== "open") return;
-  
-    setModalState("closing");
-    window.setTimeout(() => setModalState("closed"), TRANSITION_DURATION);
+    const next = resolveNextModalState(modalState, "closing");
+    if (next === modalState) return;
+
+    setModalState(next);
+
+    window.setTimeout(() => {
+      setModalState((current) => resolveNextModalState(current, "closed"));
+    }, MODAL_TRANSITION_DURATION);
   }
+
+  const tableColumns = [
+    { key: "name", header: "Name" },
+    { key: "role", header: "Role" },
+  ];
+
+  const tableRows = [
+    { name: "Alice", role: "Engineer" },
+    { name: "Bob", role: "Designer" },
+  ];
 
   return (
     <main
@@ -64,6 +88,29 @@ export default function HomePage() {
         <p style={{ marginTop: 12, opacity: 0.8 }}>
           Deterministic rule: <code>interactive = !(disabled || loading)</code>
         </p>
+      </section>
+
+      <section style={{ marginTop: 32 }}>
+        <h2 style={{ margin: "0 0 12px 0", fontSize: 16 }}>Table states</h2>
+
+        <p style={{ opacity: 0.8, fontSize: 14 }}>
+          Deterministic resolver precedence: <code>loading &gt; error &gt; empty &gt; success</code>
+        </p>
+
+        <h3 style={{ marginTop: 16, fontSize: 14 }}>Loading</h3>
+        <Table columns={tableColumns} loading />
+
+        <h3 style={{ marginTop: 16, fontSize: 14 }}>Success</h3>
+        <Table columns={tableColumns} rows={tableRows} />
+
+        <h3 style={{ marginTop: 16, fontSize: 14 }}>Empty</h3>
+        <Table columns={tableColumns} rows={[]} emptyMessage="No users found." />
+
+        <h3 style={{ marginTop: 16, fontSize: 14 }}>Error</h3>
+        <Table
+          columns={tableColumns}
+          error={{ message: "Failed to load data." }}
+        />
       </section>
 
       <section style={{ marginTop: 32 }}>
