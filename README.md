@@ -1,8 +1,31 @@
 # Deterministic UI Demo
 
-This repository demonstrates a state-defined UI architecture where every component has an explicit behavioral contract.
+A reference implementation of **state-defined UI**.
 
-**Goal:** make UI behavior verifiable.
+Every component in this repository has an explicit behavioural contract:
+- allowed states
+- allowed transitions
+- deterministic rules enforced in code
+
+**Goal:** make UI behaviour verifiable.
 
 This project evolves commit-by-commit.
-First component: **Button** (next commit).
+
+## What’s included
+
+### Button (Commit 2)
+- Contract: `contracts/button.contract.md`
+- Implementation: `components/Button.tsx`
+
+Deterministic rule enforced:
+
+`interactive = !(disabled || loading)`
+
+## Run locally
+
+```bash
+npm install
+npm run dev
+```
+
+Open `http://localhost:3000`.
