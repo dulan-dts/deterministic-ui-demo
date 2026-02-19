@@ -20,10 +20,21 @@ describe("table-state", () => {
   });
 
   it("resolver precedence: loading > error > empty > success", () => {
-    expect(resolveTableState({ loading: true, error: "x", rows: [{ id: 1 }] })).toBe("loading");
-    expect(resolveTableState({ loading: false, error: "x", rows: [{ id: 1 }] })).toBe("error");
-    expect(resolveTableState({ loading: false, error: null, rows: [] })).toBe("empty");
-    expect(resolveTableState({ loading: false, error: null, rows: [{ id: 1 }] })).toBe("success");
+    expect(
+      resolveTableState({ loading: true, error: "x", rows: [{ id: 1 }] })
+    ).toBe("loading");
+
+    expect(
+      resolveTableState({ loading: false, error: "x", rows: [{ id: 1 }] })
+    ).toBe("error");
+
+    expect(resolveTableState({ loading: false, error: null, rows: [] })).toBe(
+      "empty"
+    );
+
+    expect(
+      resolveTableState({ loading: false, error: null, rows: [{ id: 1 }] })
+    ).toBe("success");
   });
 
   it("returns loading when loading is true (even if error/rows exist)", () => {

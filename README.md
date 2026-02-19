@@ -49,7 +49,6 @@ Transition control:
 ### Table (Commit 4)
 - Contract: `contracts/table.contract.md`
 - Resolver: `components/table-state.ts`
-- Lifecycle controller: `components/modal-state.ts`
 - Implementation: `components/Table.tsx`
 
 State model:

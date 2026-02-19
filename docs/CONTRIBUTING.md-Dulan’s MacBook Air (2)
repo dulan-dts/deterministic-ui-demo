@@ -1,0 +1,83 @@
+# Contributing
+
+This repository demonstrates deterministic UI architecture.
+
+Contributions must preserve behavioral guarantees.
+
+---
+
+## 1. Contracts First
+
+Every new component must include:
+
+- Explicit state union type
+- Documented contract (`/contracts/*.contract.md`)
+- Defined transition rules (if applicable)
+- Derived invariants
+- Deterministic resolver (if lifecycle-based)
+
+UI without contract will not be accepted.
+
+---
+
+## 2. No Implicit Boolean State
+
+Avoid combinatorial flag logic such as:
+
+- `isLoading && hasError`
+- `isOpen && isAnimating && !disabled`
+
+Instead:
+
+- Use explicit state unions
+- Model lifecycle explicitly
+- Eliminate impossible combinations
+
+---
+
+## 3. Guarded Transitions
+
+If a component has lifecycle:
+
+- Allowed transitions must be documented
+- Invalid transitions must be ignored or throw in development
+- Transition logic must be pure and testable
+
+---
+
+## 4. Tests Are Required
+
+All behavioral contracts must include tests:
+
+- Resolver precedence
+- Transition validity
+- Derived helpers
+
+UI behavior must be regression-safe.
+
+---
+
+## 5. Deterministic Principle
+
+This repository values:
+
+- Explicitness over convenience
+- Determinism over flexibility
+- Contracts over assumptions
+- Invariants over visual correctness
+
+Rendering is presentation.
+
+Behavior is architecture.
+
+---
+
+## 6. AI Contributions
+
+If using AI to generate code:
+
+- Include the behavioral contract in the prompt
+- Ensure invariants are enforced in code
+- Run tests before submitting changes
+
+AI must follow contracts, not redefine them.
